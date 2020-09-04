@@ -1,2 +1,2 @@
-# hsc
-Horizon Shipping Company
+# Horizon Shipping Company
+hsc
