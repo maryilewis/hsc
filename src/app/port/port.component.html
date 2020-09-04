@@ -1,0 +1,17 @@
+<div>
+	<div>
+		Take Job
+	</div>
+	<div>
+		Hire Crew
+		<div *ngFor="let crew of crewBoard">
+			<app-crew-member [person]="crew"></app-crew-member>
+		</div>
+	</div>
+	<div>
+		Market
+	</div>
+	<div>
+		Repairs/Upgrades
+	</div>
+</div>
