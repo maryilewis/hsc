@@ -1,11 +1,19 @@
-<ul>
-	<li>
-		Money: {{ money }}
-	</li>
-	<li>
-		Food: {{ food }} / {{ foodCapacity }}
-	</li>
-	<li>
-		Fuel: {{ fuel }} / {{ fuelCapacity }}
-	</li>
-</ul>
+<div>
+	<h2>
+		{{ name }}
+	</h2>
+	<ul>
+		<li>
+			Money: {{ money }}
+		</li>
+		<li>
+			Food: {{ food }} / {{ foodCapacity }}
+		</li>
+		<li>
+			Fuel: {{ fuel }} / {{ fuelCapacity }}
+		</li>
+	</ul>
+	<div *ngFor="let crewMember of crew">
+		<app-crew-member [person]="crewMember"></app-crew-member>
+	</div>
+</div>

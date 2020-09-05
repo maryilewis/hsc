@@ -17,6 +17,8 @@ export class ShipComponent implements OnInit {
 
 	public speed: number = 3;
 
+	public name = "The Ambit";
+
 	get foodConsumtion() {
 		return this.rations * (1 + this.crew.length);
 	}

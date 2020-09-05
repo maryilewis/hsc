@@ -1,13 +1,41 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 
-
+/**
+ * Person data
+ */
 export class Person {
+
+
 	public name: string;
 	public skills: Array<Skill> = [];
 	public happiness: number;
-	private randomName(): string {
-		return "Jane Doe";
+	/**
+	 * modified from https://j11y.io/javascript/random-word-generator/
+	 */
+	private generateRandomName(): string {
+		let length: number = 4;
+		let consonants: string = 'bbbbcdfghjkllllmnnnnpqrrrrsttttvwxyz';
+		let vowels: string = 'aeiou';
+		let rand = function(limit: number): number {
+			return Math.floor(Math.random() * limit);
+		};
+		let word: string = '';
+
+		for (let i = 0; i < length; i++) {
+			let randConsonant = consonants[rand(consonants.length)];
+			let randVowel = vowels[rand(vowels.length)];
+			word += randConsonant;
+			word += randVowel;
+		}
+		// randomly chop off beginning and end
+		let random1 = Math.floor(Math.random() * 5);
+		let random2 = Math.floor(Math.random() * 2);
+		word = word.slice(random1, word.length - random2);
+		// capitalize
+		word = word.charAt(0).toUpperCase() + word.slice(1);
+
+		return word;
 	}
 	/**
 	 * change so that values tend to be more specialized
@@ -24,11 +52,14 @@ export class Person {
 
 	}
 	constructor() {
-		this.name = this.randomName();
+		this.name = this.generateRandomName();
 		this.skills = this.generateRandomSkills();
 	}
 }
 
+/**
+ * A crewmember is a person who gets paid
+ */
 export class CrewMember extends Person {
 
 	public salary: number;
