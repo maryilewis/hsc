@@ -1,0 +1,11 @@
+<div>
+	<h2>Job Board</h2>
+	<div *ngFor="let job of jobs">
+		Deliver to {{job.location}}: {{job.reward}}
+		<ul>
+			<li *ngFor="deliverable of job.deliverables">
+				{{deliverable.number}} {{deliverable.good.name}}
+			</li>
+		</ul>
+	</div>
+</div>

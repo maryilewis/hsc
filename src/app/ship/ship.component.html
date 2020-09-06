@@ -13,6 +13,13 @@
 			Fuel: {{ fuel }} / {{ fuelCapacity }}
 		</li>
 	</ul>
+	Cargo:
+	<ul>
+		<li *ngFor="let item of cargo.values()">
+			{{item.good.name}}: {{item.count}}<br>
+			{{item.good.description}}
+		</li>
+	</ul>
 	<div *ngFor="let crewMember of crew">
 		<app-crew-member [person]="crewMember"></app-crew-member>
 	</div>

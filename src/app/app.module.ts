@@ -7,6 +7,8 @@ import { PortComponent } from './port/port.component';
 import { ShopComponent } from './shop/shop.component';
 import { ShipComponent } from './ship/ship.component';
 import { CrewMemberComponent } from './crew-member/crew-member.component';
+import { JobBoardComponent } from './job-board/job-board.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,13 +16,18 @@ import { CrewMemberComponent } from './crew-member/crew-member.component';
     PortComponent,
     ShopComponent,
     ShipComponent,
-    CrewMemberComponent
+    CrewMemberComponent,
+	JobBoardComponent,
+	
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+	AppRoutingModule,
+	ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

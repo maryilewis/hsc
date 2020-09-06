@@ -1,4 +1,4 @@
-<div>
+<form (ngSubmit)="executeTransaction()" [formGroup]="inventoryForm">
 	<h2>Shop</h2>
 	<table>
 		<thead>
@@ -12,16 +12,18 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>Plants</td>
-				<td>$3</td>
-				<td>100</td>
-				<td><input type="number" step="1"></td>
-				<td><input type="checkbox"></td>
-				<td>30</td>
-			</tr>
+			<ng-container formArrayName="list">
+				<tr *ngFor="let _ of list.controls; index as i">
+					<td>{{inventory[i].good.name}}</td>
+					<td>{{inventory[i].rate}}</td>
+					<td>{{inventory[i].count}}</td>
+					<td><input type="number" step="1" min="0" max="inventory[i].count" [formControlName]="i"></td>
+					<td><input type="checkbox"></td>
+					<td>30</td>
+				</tr>
+			</ng-container>
 		</tbody>
 		<tfoot></tfoot>
 	</table>
-
-</div>
+	<button type="submit">Submit</button>
+</form>

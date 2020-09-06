@@ -1,36 +1,54 @@
 import { Component, OnInit } from '@angular/core';
+import { ShipService } from "./ship.service";
+import { CrewMember } from '../crew-member/crew-member.component';
+import { Good } from '../shop/shop.component';
 @Component({
 	selector: 'app-ship',
 	templateUrl: './ship.component.html',
 	styleUrls: ['./ship.component.less']
 })
 export class ShipComponent implements OnInit {
-	public money: number = 300;
-	public foodCapacity = 30;
-	public fuelCapacity = 30;
-	public food: number = this.foodCapacity;
-	public fuel: number = this.fuelCapacity;
-
-	public fuelConsumption = 1;
-	public rations = 3;
-	public crew: Array<string> = [];
-
-	public speed: number = 3;
-
-	public name = "The Ambit";
-
-	get foodConsumtion() {
-		return this.rations * (1 + this.crew.length);
+	get money(): number {
+		return this.shipService.money;
+	}
+	get foodCapacity(): number {
+		return this.shipService.foodCapacity;
+	}
+	get fuelCapacity(): number {
+		return this.shipService.fuelCapacity;
+	}
+	get food(): number {
+		return this.shipService.food;
+	}
+	get fuel(): number {
+		return this.shipService.fuel;
+	}
+	get fuelConsumption(): number {
+		return this.shipService.fuelConsumption;
+	}
+	get foodConsumption(): number {
+		return this.shipService.foodConsumption;
+	}
+	get rations(): number {
+		return this.shipService.rations;
+	}
+	get crew(): Array<CrewMember> {
+		return this.shipService.crew;
+	}
+	get speed(): number {
+		return this.shipService.speed;
+	}
+	get name(): string {
+		return this.shipService.name;
+	}
+	get cargo(): Map<string, {good: Good, count: number}> {
+		return this.shipService.cargo;
 	}
 
-	constructor() { }
+	constructor(private shipService: ShipService) { }
 
 	ngOnInit(): void {
 	}
 
-	public passDay() {
-		this.food -= this.foodConsumtion;
-		this.fuel -= this.fuelConsumption;
-	}
 
 }

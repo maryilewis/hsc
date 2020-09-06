@@ -12,6 +12,10 @@ export class PortComponent implements OnInit {
 	public crewBoard: Array<CrewMember> = [];
 
   constructor() {
+
+  }
+
+  ngOnInit(): void {
 	for(let i=0; i < 4; i++) {
 		this.crewBoard.push(new CrewMember());
 	}
@@ -19,8 +23,8 @@ export class PortComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
+}
 
-  }
-
+export class Port {
+	name: string;
 }
