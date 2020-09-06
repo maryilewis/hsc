@@ -1,5 +1,5 @@
 <form (ngSubmit)="executeTransaction()" [formGroup]="inventoryForm">
-	<h2>Shop</h2>
+	<h2>Buy</h2>
 	<table>
 		<thead>
 			<tr>
@@ -19,7 +19,7 @@
 					<td>{{inventory[i].count}}</td>
 					<td><input type="number" step="1" min="0" max="inventory[i].count" [formControlName]="i"></td>
 					<td><input type="checkbox"></td>
-					<td>30</td>
+					<td>${{inventory[i].rate * list.value[i]}}</td>
 				</tr>
 			</ng-container>
 		</tbody>

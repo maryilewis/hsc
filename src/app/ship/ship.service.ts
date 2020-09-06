@@ -12,7 +12,7 @@ export class ShipService {
 	public cargoCapacity = 30;
 	public food: number = this.foodCapacity;
 	public fuel: number = this.fuelCapacity;
-	public cargo: Map<string, {good: Good, count: number}> = new Map;
+	public cargo: Map<string, {good: Good, count: number}> = new Map();
 
 	public fuelConsumption = 1;
 	public rations = 3;
@@ -25,16 +25,31 @@ export class ShipService {
 	get foodConsumption() {
 		return this.rations * (1 + this.crew.length);
 	}
-	constructor() { }
+	constructor() {
+		
+	}
 
+	/**
+	 * Attempts to add a good to cargo
+	 * TODO:
+	 * count input must be positive
+	 * cost can't exceed money
+	 * number of items can't exceed available cargo space
+	 * 
+	 * @param good The good to buy
+	 * @param count How many
+	 */
 	public buyGood(good: SaleGood, count: number): string {
 		const name = good.good.name;
+
 		if (this.cargo.has(name)) {
 			const inventoryItem = this.cargo.get(name);
 			inventoryItem.count += count;
 		} else {
 			this.cargo.set(name, {good: good.good, count: count});
 		}
+
+
 		this.money -= good.rate * count;
 		
 		return `You added ${count} ${good.good.name} to your inventory.`;

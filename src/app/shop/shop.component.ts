@@ -39,10 +39,16 @@ export class ShopComponent implements OnInit {
 		}
 	}
 
+	/**
+	 * Attempt to send goods to ship service
+	 * Reset the form
+	 */
 	public executeTransaction() {
 		this.list.value.forEach((count, i) => {
 			this.shipService.buyGood(this.inventory[i], count);
+			this.inventory[i].count -= count;
 		});
+		this.inventoryForm.reset();
 	}
 
 }

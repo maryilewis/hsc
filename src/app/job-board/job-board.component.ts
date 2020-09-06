@@ -9,7 +9,7 @@ import { Good } from '../shop/shop.component';
 })
 export class JobBoardComponent implements OnInit {
 
-	public jobs = [];
+	public jobs: Array<Job> = [];
 
   constructor() { }
 

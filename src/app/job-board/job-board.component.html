@@ -3,7 +3,7 @@
 	<div *ngFor="let job of jobs">
 		Deliver to {{job.location}}: {{job.reward}}
 		<ul>
-			<li *ngFor="deliverable of job.deliverables">
+			<li *ngFor="let deliverable of job.deliverables">
 				{{deliverable.number}} {{deliverable.good.name}}
 			</li>
 		</ul>
