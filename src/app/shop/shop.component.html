@@ -12,16 +12,36 @@
 			</tr>
 		</thead>
 		<tbody>
-			<ng-container formArrayName="list">
-				<tr *ngFor="let _ of list.controls; index as i">
-					<td>{{inventory[i].good.name}}</td>
-					<td>{{inventory[i].rate}}</td>
-					<td>{{inventory[i].count}}</td>
-					<td><input type="number" step="1" min="0" max="inventory[i].count" [formControlName]="i"></td>
-					<td><input type="checkbox"></td>
-					<td>${{inventory[i].rate * list.value[i]}}</td>
-				</tr>
-			</ng-container>
+			<tr>
+				<td>Food</td>
+				<td>{{foodRate}}</td>
+				<td>Unlimited</td>
+				<td><input type="number" step="1" min="0" formControlName="food"></td>
+				<td><input type="checkbox"></td>
+				<td>${{foodRate * foodControl.value}}</td>
+			</tr>
+			<tr>
+				<td>Fuel</td>
+				<td>{{fuelRate}}</td>
+				<td>Unlimited</td>
+				<td><input type="number" step="1" min="0" formControlName="fuel"></td>
+				<td><input type="checkbox"></td>
+				<td>${{fuelRate * fuelControl.value}}</td>
+			</tr>
+
+			<tr *ngFor="let item of inventory; index as i">
+				<td>{{item.good.name}}</td>
+				<td>{{item.rate}}</td>
+				<td>{{item.count}}</td>
+				<ng-container formArrayName="list">
+					<td>
+						<input type="number" step="1" min="0" max="item.count" [formControlName]="i">
+					</td>
+				</ng-container>
+				<td><input type="checkbox"></td>
+				<td>${{item.rate * listControl.value[i]}}</td>
+			</tr>
+			
 		</tbody>
 		<tfoot></tfoot>
 	</table>

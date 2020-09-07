@@ -13,10 +13,25 @@ export class ShopComponent implements OnInit {
 
 	public inventoryForm: FormGroup;
 
-	get list(): FormArray {
+	get listControl(): FormArray {
 		return this.inventoryForm.get("list") as FormArray;
 	}
 
+	get foodRate(): number {
+		return 3;
+	}
+
+	get foodControl(): FormControl {
+		return this.inventoryForm.get("food") as FormControl;
+	}
+
+	get fuelRate(): number {
+		return 8;
+	}
+
+	get fuelControl(): FormControl {
+		return this.inventoryForm.get("fuel") as FormControl;
+	}
 
 	constructor(private shipService: ShipService) {
 
@@ -28,15 +43,19 @@ export class ShopComponent implements OnInit {
 			rate: 3,
 			count: 100
 		}];
+
+		const controlArray = this.inventory.map(item => new FormControl(0));
 	
 		this.inventoryForm = new FormGroup({
-			list: new FormArray([])
+			list: new FormArray(controlArray),
+			food: new FormControl(0),
+			fuel: new FormControl(0),
 		});
 
-		for (let item of this.inventory) {
-			// initalize to purchasing 0 of each thing
-			this.list.push(new FormControl(0));
-		}
+		// for (let item of this.inventory) {
+		// 	// initalize to purchasing 0 of each thing
+		// 	this.list.push(new FormControl(0));
+		// }
 	}
 
 	/**
@@ -44,7 +63,7 @@ export class ShopComponent implements OnInit {
 	 * Reset the form
 	 */
 	public executeTransaction() {
-		this.list.value.forEach((count, i) => {
+		this.listControl.value.forEach((count, i) => {
 			this.shipService.buyGood(this.inventory[i], count);
 			this.inventory[i].count -= count;
 		});
