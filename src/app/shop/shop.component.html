@@ -7,7 +7,6 @@
 				<td>Price per unit</td>
 				<td>Available</td>
 				<td>Count</td>
-				<td>Fill up?</td>
 				<td>Total</td>
 			</tr>
 		</thead>
@@ -16,16 +15,15 @@
 				<td>Food</td>
 				<td>{{foodRate}}</td>
 				<td>Unlimited</td>
-				<td><input type="number" step="1" min="0" formControlName="food"></td>
-				<td><input type="checkbox"></td>
+				<td><input type="number" step="1" min="0" formControlName="food"><button type="button" (click)="fillUpFood()">Fill up</button></td>
 				<td>${{foodRate * foodControl.value}}</td>
 			</tr>
 			<tr>
 				<td>Fuel</td>
 				<td>{{fuelRate}}</td>
 				<td>Unlimited</td>
-				<td><input type="number" step="1" min="0" formControlName="fuel"></td>
-				<td><input type="checkbox"></td>
+				<td><input type="number" step="1" min="0" formControlName="fuel">
+					<button type="button" (click)="fillUpFuel()">Fill up</button></td>
 				<td>${{fuelRate * fuelControl.value}}</td>
 			</tr>
 
@@ -36,14 +34,24 @@
 				<ng-container formArrayName="list">
 					<td>
 						<input type="number" step="1" min="0" max="item.count" [formControlName]="i">
+						<button type="button"  (click)="fillUpGood(i)">Fill up</button>
 					</td>
 				</ng-container>
-				<td><input type="checkbox"></td>
+				
 				<td>${{item.rate * listControl.value[i]}}</td>
 			</tr>
 			
 		</tbody>
-		<tfoot></tfoot>
+		<tfoot>
+			<tr>
+				<td colspan=4>
+					Available funds: {{funds}}
+				</td>
+				<td colspan=1>
+					${{cartTotal}}
+				</td>
+			</tr>
+		</tfoot>
 	</table>
 	<button type="submit">Submit</button>
 </form>

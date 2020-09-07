@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ShipService } from '../ship/ship.service';
 import { FormsModule , FormControl, FormGroup, FormArray, ReactiveFormsModule } from '@angular/forms';
+import { AttachSession } from 'protractor/built/driverProviders';
 
 @Component({
 	selector: 'app-shop',
@@ -33,6 +34,16 @@ export class ShopComponent implements OnInit {
 		return this.inventoryForm.get("fuel") as FormControl;
 	}
 
+	get funds():number {
+		return this.shipService.money;
+	}
+
+	get cartTotal(): number {
+		return this._cartTotal;
+	}
+
+	private _cartTotal: number;
+
 	constructor(private shipService: ShipService) {
 
 	}
@@ -52,10 +63,96 @@ export class ShopComponent implements OnInit {
 			fuel: new FormControl(0),
 		});
 
-		// for (let item of this.inventory) {
-		// 	// initalize to purchasing 0 of each thing
-		// 	this.list.push(new FormControl(0));
-		// }
+		this.inventoryForm.valueChanges.subscribe(() => { this.updateTotal(); });
+		this.updateTotal();
+
+	}
+
+	public updateTotal() {
+		this._cartTotal = this.calculateCartTotal();
+	}
+
+	/**
+	 * Calcualtes the value for cart total but diesn't change anything
+	 * @returns total cart cost
+	 */
+	private calculateCartTotal(): number {
+		let total = this.foodControl.value * this.foodRate;
+		total += this.fuelControl.value * this.fuelRate;
+		this.listControl.value.forEach((count, index) => {
+			total += count * this.inventory[index].rate;
+		});
+		return total;
+	}
+
+	/**
+	 * limit by funds and space for food
+	 */
+	public fillUpFood() {
+		// target is how much the ship can hold
+		const numberFit = this.shipService.foodCapacity - this.shipService.food;
+
+		this.foodControl.setValue(0);
+
+		const availableFunds = this.shipService.money - this.calculateCartTotal();
+
+		const numberAfforable = Math.floor(availableFunds / this.foodRate);
+
+		const finalNumber = Math.min(numberAfforable, numberFit);
+
+		console.log(`fit: ${numberFit}, availableFunds: ${availableFunds}, numberAfforable: ${numberAfforable}, finalNumber: ${finalNumber},  `)
+
+		this.foodControl.setValue(finalNumber);
+
+	}
+
+	/**
+	 * limit by funds and space in fuel tank
+	 */
+	public fillUpFuel() {
+		// target is how much the ship can hold
+		const numberFit = this.shipService.fuelCapacity - this.shipService.fuel;
+
+		this.fuelControl.setValue(0);
+
+		const availableFunds = this.shipService.money - this.calculateCartTotal();
+
+		const numberAfforable = Math.floor(availableFunds / this.fuelRate);
+		
+		const finalNumber = Math.min(numberAfforable, numberFit);
+
+		this.fuelControl.setValue(finalNumber);
+	}
+
+	/**
+	 * limit by funds and cargo space
+	 *
+	 * @param index
+	 */
+	public fillUpGood(index: number) {
+		// target is how much the ship can hold
+		let numberFit = this.shipService.cargoCapacity - this.shipService.cargoCount;
+
+		// subtract other goods already in the shopping cart
+		numberFit += this.listControl.value.reduce((acc, curr, idx) => {
+			if (idx === index) {
+				return acc;
+			} else {
+				return acc + curr;
+			}
+		}, 0);
+
+		this.listControl.controls[index].setValue(0);
+
+		const availableFunds = this.shipService.money - this.calculateCartTotal();
+
+		const numberAfforable = Math.floor(availableFunds / this.inventory[index].rate);
+
+		const finalNumber = Math.min(numberAfforable, numberFit);
+
+		this.listControl.controls[index].setValue(finalNumber);
+
+		console.log(`fit: ${numberFit}, availableFunds: ${availableFunds}, numberAfforable: ${numberAfforable}, finalNumber: ${finalNumber},  `)
 	}
 
 	/**
@@ -69,6 +166,9 @@ export class ShopComponent implements OnInit {
 		});
 		this.inventoryForm.reset();
 	}
+
+
+
 
 }
 

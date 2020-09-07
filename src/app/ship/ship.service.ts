@@ -22,9 +22,16 @@ export class ShipService {
 
 	public name = "The Ambit";
 
-	get foodConsumption() {
+	get foodConsumption(): number {
 		return this.rations * (1 + this.crew.length);
 	}
+
+	get cargoCount(): number {
+		return Array.from(this.cargo.values()).reduce((acc, curr) => {
+			return acc + curr.count;
+		}, 0);
+	}
+
 	constructor() {
 		
 	}
