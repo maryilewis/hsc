@@ -85,6 +85,14 @@ export class CrewMemberComponent implements OnInit {
 	@Input()
 	person: CrewMember;
 
+	get tagline(): string {
+		const highestSkill: Skill = this.person.skills.sort((a, b) => {
+			return b.level - a.level;
+		})[0];
+
+		return `Level ${highestSkill.level} ${highestSkill.name}`
+	}
+
 	constructor() {
 
 	}
