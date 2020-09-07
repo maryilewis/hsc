@@ -1,11 +1,6 @@
 <div>
 	<app-shop></app-shop>
-
-
-	<h2>Hire Crew</h2>
-	<div *ngFor="let crew of crewBoard">
-		<app-crew-member [person]="crew"></app-crew-member>
-	</div>
+	<app-crew-board [crewBoard]="crewBoard"></app-crew-board>
 	<app-job-board></app-job-board>
 	<h2>
 		Repairs/Upgrades

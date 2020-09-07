@@ -1,0 +1,5 @@
+<h2>Hire Crew</h2>
+<div *ngFor="let crew of crewBoard">
+	<app-crew-member [person]="crew"></app-crew-member>
+	<button type="button" (click)="hire(crew)">Hire</button>
+</div>

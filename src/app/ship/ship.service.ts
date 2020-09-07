@@ -62,6 +62,15 @@ export class ShipService {
 		return `You added ${count} ${good.good.name} to your inventory.`;
 	}
 
+	/**
+	 * Add person to crew
+	 *
+	 * @param person
+	 */
+	public hire(person: CrewMember) {
+		this.crew.push(person);
+	}
+
 	public passDay() {
 		this.food -= this.foodConsumption;
 		this.fuel -= this.fuelConsumption;

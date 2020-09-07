@@ -9,6 +9,7 @@ import { ShipComponent } from './ship/ship.component';
 import { CrewMemberComponent } from './crew-member/crew-member.component';
 import { JobBoardComponent } from './job-board/job-board.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CrewBoardComponent } from './crew-board/crew-board.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ShipComponent,
     CrewMemberComponent,
 	JobBoardComponent,
+	CrewBoardComponent,
 	
   ],
   imports: [
