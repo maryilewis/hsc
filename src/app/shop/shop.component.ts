@@ -159,16 +159,13 @@ export class ShopComponent implements OnInit {
 	 * Attempt to send goods to ship service
 	 * Reset the form
 	 */
-	public executeTransaction() {
+	public buy() {
 		this.listControl.value.forEach((count, i) => {
 			this.shipService.buyGood(this.inventory[i], count);
 			this.inventory[i].count -= count;
 		});
 		this.inventoryForm.reset();
 	}
-
-
-
 
 }
 
@@ -177,6 +174,11 @@ export class ShopComponent implements OnInit {
 export type SaleGood = {
 	good: Good;
 	rate: number;
+	count: number;
+}
+
+export type InventoryGood = {
+	good: Good;
 	count: number;
 }
 

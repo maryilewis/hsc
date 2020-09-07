@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CrewMember } from '../crew-member/crew-member.component';
-import { Good, SaleGood } from '../shop/shop.component';
+import { Good, SaleGood, InventoryGood } from '../shop/shop.component';
 
 @Injectable({
 	providedIn: 'root'
@@ -12,7 +12,7 @@ export class ShipService {
 	public cargoCapacity = 30;
 	public food: number = this.foodCapacity;
 	public fuel: number = this.fuelCapacity;
-	public cargo: Map<string, {good: Good, count: number}> = new Map();
+	public cargo: Map<string, InventoryGood> = new Map();
 
 	public fuelConsumption = 1;
 	public rations = 3;
@@ -60,6 +60,12 @@ export class ShipService {
 		this.money -= good.rate * count;
 		
 		return `You added ${count} ${good.good.name} to your inventory.`;
+	}
+
+	public sellGood(good: InventoryGood, count: number) {
+		const goodRef = this.cargo.get(good.good.name);
+		goodRef.count -= count;
+		// TODO get paid
 	}
 
 	/**

@@ -10,6 +10,7 @@ import { CrewMemberComponent } from './crew-member/crew-member.component';
 import { JobBoardComponent } from './job-board/job-board.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CrewBoardComponent } from './crew-board/crew-board.component';
+import { SellComponent } from './sell/sell.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { CrewBoardComponent } from './crew-board/crew-board.component';
     CrewMemberComponent,
 	JobBoardComponent,
 	CrewBoardComponent,
+	SellComponent,
 	
   ],
   imports: [
