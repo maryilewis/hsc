@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ShipService } from "./ship.service";
 import { CrewMember } from '../crew-member/crew-member.component';
-import { Good } from '../shop/shop.component';
+import { Good } from '../shop/shop.service';
 @Component({
 	selector: 'app-ship',
 	templateUrl: './ship.component.html',

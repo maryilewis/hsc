@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Port } from '../port/port.component';
-import { Good } from '../shop/shop.component';
+import { Good } from '../shop/shop.service';
 
 @Component({
   selector: 'app-job-board',

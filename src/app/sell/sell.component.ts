@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ShipService } from '../ship/ship.service';
-import { SaleGood, Good, InventoryGood } from '../shop/shop.component';
+import { SaleGood, Good, InventoryGood, ShopService, Shop } from '../shop/shop.service';
 import { FormGroup, FormArray, FormControl } from '@angular/forms';
+import { of } from 'rxjs';
 
 @Component({
 	selector: 'app-sell',
@@ -10,7 +11,10 @@ import { FormGroup, FormArray, FormControl } from '@angular/forms';
 })
 export class SellComponent implements OnInit {
 
-	public inventory: Array<InventoryGood> = [];
+	@Input()
+	location: string;
+
+	public inventory: Array<SaleGood> = [];
 
 	public inventoryForm: FormGroup;
 
@@ -24,11 +28,25 @@ export class SellComponent implements OnInit {
 
 	private _profit = 0;
 
-	constructor(private shipService: ShipService) { }
+	private _shop: Shop;
+
+	constructor(private shipService: ShipService, private shopService: ShopService) { }
 
 	ngOnInit(): void {
 
-		this.inventory = Array.from(this.shipService.cargo.values());
+		this._shop = this.shopService.shops.get(this.location);
+
+		this.shipService.cargo$.subscribe((cargo: Map<string, InventoryGood>) => {
+			this.initializeForm(cargo);
+		});
+	}
+
+	private initializeForm(cargo) {
+		const temp = Array.from(cargo.values());
+		this.inventory = temp.map(item => {
+			(item as SaleGood).rate = 10;
+			return item as SaleGood;
+		});
 
 		const controlArray = this.inventory.map(item => new FormControl(0));
 
@@ -45,11 +63,15 @@ export class SellComponent implements OnInit {
 
 	public sell() {
 		this.listControl.value.forEach((count, i) => {
-			this.shipService.sellGood(this.inventory[i], count);
-			// I need a shop service and buy/sell component so the things you sell end up int he shop, and prices are shared
+			this.shipService.sellGood(this.inventory[i], count, 10);
+			// I need a shop service and buy/sell component so the things you sell end up in the shop, and prices are shared
 			
 		});
 		this.inventoryForm.reset();
+	}
+
+	public sellAll(index: number) {
+		this.listControl.controls[index].setValue(this.inventory[index].count);
 	}
 
 }

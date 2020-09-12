@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ShipService } from '../ship/ship.service';
 import { FormsModule , FormControl, FormGroup, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { AttachSession } from 'protractor/built/driverProviders';
+import { SaleGood, ShopService, Shop } from './shop.service';
+import { ALL_GOODS } from '../sell/sell.component';
 
 @Component({
 	selector: 'app-shop',
@@ -9,6 +11,9 @@ import { AttachSession } from 'protractor/built/driverProviders';
 	styleUrls: ['./shop.component.less']
 })
 export class ShopComponent implements OnInit {
+
+	@Input()
+	location: string;
 
 	public inventory: Array<SaleGood> = [];
 
@@ -19,7 +24,7 @@ export class ShopComponent implements OnInit {
 	}
 
 	get foodRate(): number {
-		return 3;
+		return this._shop.foodRate ? this._shop.foodRate : 3;
 	}
 
 	get foodControl(): FormControl {
@@ -27,7 +32,7 @@ export class ShopComponent implements OnInit {
 	}
 
 	get fuelRate(): number {
-		return 8;
+		return this._shop.fuelRate ? this._shop.fuelRate : 8;
 	}
 
 	get fuelControl(): FormControl {
@@ -44,16 +49,27 @@ export class ShopComponent implements OnInit {
 
 	private _cartTotal: number;
 
-	constructor(private shipService: ShipService) {
+	private _shop: Shop;
+
+	constructor(private shipService: ShipService, private shopService: ShopService) {
 
 	}
 
 	ngOnInit(): void {
-		this.inventory = [{
-			good: ALL_GOODS[0],
-			rate: 3,
-			count: 100
-		}];
+		this._shop = this.shopService.shops.get(this.location);
+
+		this.inventory = [];
+		this._shop.goods.forEach(shopGood => {
+			const rate = shopGood.typicalPrice + Math.ceil(Math.random() * shopGood.typicalVariance);
+			this.inventory.push({
+				good: {
+					name: shopGood.name,
+					description: shopGood.description
+				},
+				rate: rate,
+				count: 100
+			})
+		});
 
 		const controlArray = this.inventory.map(item => new FormControl(0));
 	
@@ -171,33 +187,3 @@ export class ShopComponent implements OnInit {
 
 
 
-export type SaleGood = {
-	good: Good;
-	rate: number;
-	count: number;
-}
-
-export type InventoryGood = {
-	good: Good;
-	count: number;
-}
-
-export type Good = {
-	name: string;
-	description: string;
-}
-
-
-export const ALL_GOODS: Array<Good> = [{
-	name: "Plants",
-	description: "Nice and leafy."
-}, {
-	name: "Minerals",
-	description: "Go well with Vitamins."
-}, {
-	name: "Diamonds",
-	description: "Extremely valuable small rocks."
-}, {
-	name: "Cat Pushies",
-	description: "Soft and friendly."
-}]

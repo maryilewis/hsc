@@ -15,10 +15,11 @@
 			<tr *ngFor="let item of inventory; index as i">
 				<td>{{item.good.name}}</td>
 				<td>{{item.rate}}</td>
+				<td>{{item.count}}</td>
 				<ng-container formArrayName="list">
 					<td>
 						<input type="number" step="1" min="0" max="item.count" [formControlName]="i">
-						<button type="button"  (click)="sellAll(i)">Sell all</button>
+						<button type="button" (click)="sellAll(i)">Sell all</button>
 					</td>
 				</ng-container>
 				

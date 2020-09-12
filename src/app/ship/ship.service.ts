@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CrewMember } from '../crew-member/crew-member.component';
-import { Good, SaleGood, InventoryGood } from '../shop/shop.component';
+import { Good, SaleGood, InventoryGood } from '../shop/shop.service';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
@@ -12,7 +13,16 @@ export class ShipService {
 	public cargoCapacity = 30;
 	public food: number = this.foodCapacity;
 	public fuel: number = this.fuelCapacity;
-	public cargo: Map<string, InventoryGood> = new Map();
+
+	private _cargo: BehaviorSubject<Map<string, InventoryGood>> = new BehaviorSubject(new Map());
+
+	get cargo(): Map<string, InventoryGood> {
+		return this._cargo.getValue();
+	}
+
+	get cargo$(): Observable<Map<string, InventoryGood>> {
+		return this._cargo.asObservable();
+	}
 
 	public fuelConsumption = 1;
 	public rations = 3;
@@ -33,7 +43,14 @@ export class ShipService {
 	}
 
 	constructor() {
-		
+		this.cargo.set("Plants", {
+			good: {
+				name: "Plants",
+				description: "Nice and leafy"
+			},
+			count: 10
+		});
+		this._cargo.next(this.cargo);
 	}
 
 	/**
@@ -55,6 +72,7 @@ export class ShipService {
 		} else {
 			this.cargo.set(name, {good: good.good, count: count});
 		}
+		this._cargo.next(this.cargo);
 
 
 		this.money -= good.rate * count;
@@ -62,10 +80,12 @@ export class ShipService {
 		return `You added ${count} ${good.good.name} to your inventory.`;
 	}
 
-	public sellGood(good: InventoryGood, count: number) {
+	public sellGood(good: InventoryGood, count: number, rate: number) {
 		const goodRef = this.cargo.get(good.good.name);
+		count = Math.min(goodRef.count, count);
 		goodRef.count -= count;
-		// TODO get paid
+		this.money += count * rate;
+		this._cargo.next(this.cargo);
 	}
 
 	/**
