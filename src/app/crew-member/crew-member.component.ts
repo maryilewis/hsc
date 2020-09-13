@@ -66,8 +66,8 @@ export class CrewMember extends Person {
 
 	private calculateSalary(): number {
 		return Math.ceil(this.skills.reduce(
-			(acc: number, curr: Skill) => acc + curr.level * curr.level * curr.level,
-		0) / 2)
+			(acc: number, curr: Skill) => acc + curr.level * curr.level,
+		0) / 4)
 	};
 
 	constructor() {
