@@ -64,7 +64,7 @@ export class SellComponent implements OnInit {
 	public sell() {
 		this.listControl.value.forEach((count, i) => {
 			this.shipService.sellGood(this.inventory[i], count, 10);
-			// I need a shop service and buy/sell component so the things you sell end up in the shop, and prices are shared
+			// I need to change the shop service so the things you sell end up in the shop, and prices are shared
 			
 		});
 		this.inventoryForm.reset();

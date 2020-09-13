@@ -41,8 +41,8 @@ export class ShipComponent implements OnInit {
 	get name(): string {
 		return this.shipService.name;
 	}
-	get cargo(): Map<string, {good: Good, count: number}> {
-		return this.shipService.cargo;
+	get cargo(): Array<{good: Good, count: number}> {
+		return Array.from(this.shipService.cargo.values());
 	}
 
 	constructor(private shipService: ShipService) { }

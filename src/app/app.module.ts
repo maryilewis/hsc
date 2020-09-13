@@ -11,6 +11,7 @@ import { JobBoardComponent } from './job-board/job-board.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CrewBoardComponent } from './crew-board/crew-board.component';
 import { SellComponent } from './sell/sell.component';
+import { TravelMenuComponent } from './travel-menu/travel-menu.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { SellComponent } from './sell/sell.component';
 	JobBoardComponent,
 	CrewBoardComponent,
 	SellComponent,
+	TravelMenuComponent,
 	
   ],
   imports: [

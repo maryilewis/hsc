@@ -1,0 +1,8 @@
+<h2>Travel</h2>
+<form (ngSubmit)="takeOff()" [formGroup]="travelForm">
+	<div *ngFor="let location of availableLocations">
+		<input type="radio" [value]="location" name="location" formControlName="location">
+		<label [for]="location">{{location}}</label>
+	</div>
+	<button type="submit">Take off</button>
+</form>
