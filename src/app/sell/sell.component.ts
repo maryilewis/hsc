@@ -75,17 +75,3 @@ export class SellComponent implements OnInit {
 	}
 
 }
-
-export const ALL_GOODS: Array<Good> = [{
-	name: "Plants",
-	description: "Nice and leafy."
-}, {
-	name: "Minerals",
-	description: "Go well with Vitamins."
-}, {
-	name: "Diamonds",
-	description: "Extremely valuable small rocks."
-}, {
-	name: "Cat Pushies",
-	description: "Soft and friendly."
-}]

@@ -3,7 +3,6 @@ import { ShipService } from '../ship/ship.service';
 import { FormsModule , FormControl, FormGroup, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { AttachSession } from 'protractor/built/driverProviders';
 import { SaleGood, ShopService, Shop } from './shop.service';
-import { ALL_GOODS } from '../sell/sell.component';
 
 @Component({
 	selector: 'app-shop',

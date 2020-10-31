@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CrewMember } from '../crew-member/crew-member.component';
+import { CrewMember } from '../model/person.model';
 
 
 @Component({
@@ -23,8 +23,4 @@ export class PortComponent implements OnInit {
 
   }
 
-}
-
-export class Port {
-	name: string;
 }
