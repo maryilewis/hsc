@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { CrewMember } from '../crew-member/crew-member.component';
-import { Good, SaleGood, InventoryGood } from '../shop/shop.service';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { InventoryGood, SaleGood } from '../model/shop.model';
+import { CrewMember } from '../model/person.model';
 
 @Injectable({
 	providedIn: 'root'

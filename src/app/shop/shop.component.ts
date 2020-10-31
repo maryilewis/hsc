@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ShipService } from '../ship/ship.service';
 import { FormsModule , FormControl, FormGroup, FormArray, ReactiveFormsModule } from '@angular/forms';
-import { AttachSession } from 'protractor/built/driverProviders';
-import { SaleGood, ShopService, Shop } from './shop.service';
+import { SaleGood, Shop } from '../model/shop.model';
+import { ShopService } from './shop.service';
+
 
 @Component({
 	selector: 'app-shop',

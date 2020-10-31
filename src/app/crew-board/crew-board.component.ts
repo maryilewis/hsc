@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { CrewMember } from '../crew-member/crew-member.component';
 import { ShipService } from '../ship/ship.service';
+import { CrewMember } from '../model/person.model';
 
 @Component({
   selector: 'app-crew-board',

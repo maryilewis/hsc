@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ShipService } from '../ship/ship.service';
-import { SaleGood, Good, InventoryGood, ShopService, Shop } from '../shop/shop.service';
 import { FormGroup, FormArray, FormControl } from '@angular/forms';
-import { of } from 'rxjs';
+import { SaleGood, Shop, InventoryGood } from '../model/shop.model';
+import { ShopService } from '../shop/shop.service';
 
 @Component({
 	selector: 'app-sell',

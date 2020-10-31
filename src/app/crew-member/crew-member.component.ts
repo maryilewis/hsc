@@ -1,9 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CrewMember, Skill } from '../model/person.model';
 
-
-
-
 @Component({
 	selector: 'app-crew-member',
 	templateUrl: './crew-member.component.html',
